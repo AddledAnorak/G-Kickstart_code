@@ -1,4 +1,4 @@
-// FOR SOME REASON, THIS CODE DOESN'T WORK
+// THIS CODE ONLY WORKS FOR TS1
 
 
 #include <iostream>
@@ -122,7 +122,7 @@ T MIN(T first, Rest... rest) {
 
 
 
-// FOR SOME REASON, THIS CODE DOESN'T WORK
+// THIS CODE ONLY WORKS FOR TS2
 
 
 class Node {
@@ -133,6 +133,14 @@ public:
     Node(char v = ' ', Node* nxt = NULL) {
         val = v;
         next = nxt;
+    }
+
+    bool isEq(Node* node) {
+        if(node->val != val) return 0;
+        if(next == NULL && node->next == NULL) return 1;
+        if(next == NULL && node->next != NULL) return 0;
+
+        return next->isEq(node->next);
     }
 };
 
@@ -158,8 +166,18 @@ Node* replaceAll(Node* root, string rep) {
     return root;
 }
 
+string buildString(Node* node) {
+    string s = "";
+    while(node != NULL) {
+        s += node->val;
+        node = node->next;
+    }
+
+    return s;
+}
+
 void solve() {
-    // FOR SOME REASON, THIS CODE DOESN'T WORK
+    // THIS CODE ONLY WORKS FOR TS1
 
     int n;
     string s;
@@ -168,6 +186,10 @@ void solve() {
 
     Node* head = new Node;
     Node* curr = head;
+    Node* prev = new Node;
+
+    string prevString = "abc";
+    string currString;
 
     FOR(n) {
         char c = s[i];
@@ -179,8 +201,9 @@ void solve() {
         curr = curr->next;
     }
     
-    curr = replaceAll(
-        replaceAll(
+
+    while(1) {
+        curr = replaceAll(
             replaceAll(
                 replaceAll(
                     replaceAll(
@@ -189,25 +212,28 @@ void solve() {
                                 replaceAll(
                                     replaceAll(
                                         replaceAll(
-                                            head, "01"
-                                        ), "12"
-                                    ), "23"
-                                ), "34"
-                            ), "45"
-                        ), "56"
-                    ), "67"
-                ), "78"
-            ), "89"
-        ), "90"
-    );
+                                            replaceAll(
+                                                head, "01"
+                                            ), "12"
+                                        ), "23"
+                                    ), "34"
+                                ), "45"
+                            ), "56"
+                        ), "67"
+                    ), "78"
+                ), "89"
+            ), "90"
+        );
 
-    s = "";
-    while(curr != NULL) {
-        s += curr->val;
-        curr = curr->next;
+        
+
+        currString = buildString(curr);
+        if(prevString == currString) break;
+
+        prevString = currString;
     }
 
-    write(s);
+    write(prevString);
 }
 
 
@@ -216,7 +242,7 @@ void solve() {
 
 
 int main() {
-    // FOR SOME REASON, THIS CODE DOESN'T WORK
+    // THIS CODE ONLY WORKS FOR TS1
     int testCases;
     cin >> testCases;
     
